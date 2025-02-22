@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "g"
+version = "0.1.0"
+description = ""
+authors = ["mohamed-JJ <simojarboue24@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pydantic = "^2.10.4"
+flask = "^3.1.0"
+flask-cors = "^5.0.0"
+rich = "^13.9.4"
+gunicorn = "^23.0.0"
+uvicorn = "^0.34.0"
+requests = "^2.32.3"
+fastapi = "^0.115.6"
+databases = "^0.9.0"
+sqlalchemy = {extras = ["asyncio"], version = "^2.0.36"}
+openai = "^1.58.1"
+python-dotenv = "^1.0.1"
+pyairtable = "^3.0.1"
+pydantic-settings = "^2.7.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

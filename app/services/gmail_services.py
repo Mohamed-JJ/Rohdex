@@ -36,7 +36,7 @@ class EmailReader:
         """
         criteria = A(date_gte=since.date(), date_lt=until.date())
         emails = []
-        for msg in self.mailbox.fetch(criteria=criteria, limit=20, reverse=True, mark_seen=False):  # Fetch the last 20 emails
+        for msg in self.mailbox.fetch(criteria=criteria, reverse=True, mark_seen=False, limit=30):  # Fetch the last 20 emails
             emails.append(self.parse_email(msg))
         return emails
 
@@ -45,7 +45,7 @@ class EmailReader:
             'From': msg.from_,
             'Subject': msg.subject,
             'Date': msg.date,
-            'Body': msg.text,  # or msg.html for HTML content
+            # 'Body': msg.text,  # or msg.html for HTML content
         }
 
     def logout(self):

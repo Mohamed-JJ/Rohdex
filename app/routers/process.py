@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from datetime import datetime
 from app.core import get_logger
 from ..services.gmail_services import EmailReader
+from ..models.runs import read_users as read_runs, save_users as save_run
 from rich.console import Console
 
 router = APIRouter()
@@ -18,12 +19,20 @@ async def process_data() -> dict:
     
     # connect the reader
     reader.connect()
-    since = datetime(2024, 2, 19)  # February 20th
-    until = datetime(2024, 2, 20)  # February 21st
+
+    # fetch the last run from the db/runs.json until better solution is proposed
+    runss = read_runs()
+    console.print(runss[runss.__len__() - 1])
+    since = datetime.fromisoformat(runss[runss.__len__() - 1]["date"])  # the date of the last time this endpoint was envoked
+    until = datetime.now()  # the current date
+    # until = datetime(2024, 2, 20)  # February 20th
+    # since = datetime(2024, 2, 18)  # February 20th
+
+
     # fetch the emails from the inbox
     emails = reader.fetch_emails(since=since, until=until)
 
-    # print for debugging
-    # for email in emails : console.print(email)
-
+    # save the run in the json file
+    runss.append({"id": runss.__len__() + 1, "date": datetime.now().isoformat()})
+    newRun = save_run(runss)
     return {"status": "success", "timestamp": datetime.now(), "data": emails}

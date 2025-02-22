@@ -4,23 +4,22 @@ from pydantic import BaseModel
 import json
 from typing import List, Optional
 
-class ProccessedEmails(BaseModel):
+class Runs(BaseModel):
     id: int
-    email: str
-    body: str
+    date: str
 
 # Load users from the JSON file
 def load_users():
-    with open("db.json", "r") as f:
+    with open("db/runs.json", "r") as f:
         return json.load(f)
 
 # Save users to the JSON file
 def save_users(users):
-    with open("db.json", "w") as f:
+    with open("db/runs.json", "w") as f:
         json.dump(users, f, indent=4)
 
 # Function to create a user
-def create_user(user: ProccessedEmails) -> ProccessedEmails:
+def create_user(user: Runs) -> Runs:
     users = load_users()
     if any(u.id == user.id for u in users):
         raise ValueError("User ID already exists")
@@ -30,11 +29,11 @@ def create_user(user: ProccessedEmails) -> ProccessedEmails:
     return user
 
 # Function to retrieve all users
-def read_users() -> List[ProccessedEmails]:
+def read_users() -> List[Runs]:
     return load_users()
 
 # Function to retrieve a user by ID
-def read_user(user_id: int) -> Optional[ProccessedEmails]:
+def read_user(user_id: int) -> Optional[Runs]:
     users = load_users()
     user = next((u for u in users if u.id == user_id), None)
     return user

@@ -13,7 +13,7 @@ class OpenAIService:
         self.settings = settings
         self.client = OpenAI(
             api_key=settings.OPENAI_APIKEY.get_secret_value(),
-            organization=settings.ORG_ID,
+            # organization=settings.ORG_ID,
         )
 
     async def get_json_output(

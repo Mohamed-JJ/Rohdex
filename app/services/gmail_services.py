@@ -1,6 +1,7 @@
 from imap_tools import MailBox, MailMessage, A
 import os
 from dotenv import load_dotenv
+from datetime import datetime
 from typing import Dict, List
 
 class EmailReader:
@@ -21,9 +22,21 @@ class EmailReader:
         self.mailbox = MailBox(self.imap_server)
         self.mailbox.login(self.email_user, self.email_pass)
 
-    def fetch_emails(self, folder='INBOX')-> List[Dict[str, str]]:
+    def fetch_emails(self, since: datetime, until: datetime, folder='INBOX')-> List[Dict[str, str]]:
+        """
+    Fetch emails from specified folder within given date range.
+    
+    Args:
+        folder (str): Name of the mailbox folder to fetch from
+        since (datetime): Start date for email fetch
+        until (datetime): End date for email fetch
+        
+    Returns:
+        list(dict): List of parsed email dictionaries
+        """
+        criteria = A(date_gte=since.date(), date_lt=until.date())
         emails = []
-        for msg in self.mailbox.fetch(limit=20, reverse=True, mark_seen=False):  # Fetch the last 10 emails
+        for msg in self.mailbox.fetch(criteria=criteria, limit=20, reverse=True, mark_seen=False):  # Fetch the last 20 emails
             emails.append(self.parse_email(msg))
         return emails
 

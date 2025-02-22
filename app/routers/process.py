@@ -18,11 +18,12 @@ async def process_data() -> dict:
     
     # connect the reader
     reader.connect()
-
+    since = datetime(2024, 2, 19)  # February 20th
+    until = datetime(2024, 2, 20)  # February 21st
     # fetch the emails from the inbox
-    emails = reader.fetch_emails()
+    emails = reader.fetch_emails(since=since, until=until)
 
     # print for debugging
-    for email in emails : console.print(email)
+    # for email in emails : console.print(email)
 
     return {"status": "success", "timestamp": datetime.now(), "data": emails}

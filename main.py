@@ -90,7 +90,8 @@ if __name__ == "__main__":
  """
         for dt in data:
             res: TestClass = get_json(schema=PartieEntries, prompt=prompt, user_input=dt)
-            console.print(res)
+            json_res = json.loads(res)
+            console.print(json_res)
     
     except Exception as error:
         console.print(error.args)

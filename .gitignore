@@ -2,5 +2,6 @@ env
 .env
 db
 attachements
-./fastapi
-./nginx
+./images
+results.json
+todo.todo

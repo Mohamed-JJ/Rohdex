@@ -4,6 +4,7 @@ setup:
 	@pip install -r requirements.txt
 
 run:
+	@sh ./scripts/cron_job.sh
 	@uvicorn app.main:app --reload --port 8000
 
 

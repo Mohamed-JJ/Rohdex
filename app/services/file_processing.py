@@ -37,7 +37,7 @@ def process_xlsx_files(directory: str, prefix: str) -> List[str]:
 
     return dataframes
 
-def process_attached_files():
+def process_attached_files(emails):
     try:
         # partie_files = process_directory("./attachements", "Partie")
         data = process_xlsx_files("./attachements", "Partie")
@@ -73,11 +73,13 @@ def process_attached_files():
      </task>
  </prompt>
  """
+        json_data = []
         for dt in data:
             res: TestClass = get_json(schema=PartieEntries, prompt=prompt, user_input=dt)
             json_res = json.loads(res)
             console.print(json_res)
-    
+            json_data.append(json_res)
+        return json_data
     except Exception as error:
         console.print(error.args)
     

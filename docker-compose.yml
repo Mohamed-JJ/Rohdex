@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  fastapi:
+    build: ./fastapi
+    ports:
+      - "8000:8000"
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    volumes:
+      - certs:/etc/letsencrypt
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - fastapi
+    entrypoint: ["/bin/sh", "-c", "trap exit TERM; certbot --nginx -d 157.175.44.139 --non-interactive --agree-tos -m your_email@example.com; while :; do sleep 6h & wait $${!}; certbot renew --quiet; done"]
+
+volumes:
+  certs:

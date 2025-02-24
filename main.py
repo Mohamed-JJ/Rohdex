@@ -1,5 +1,5 @@
 from app.services.agent import get_completion, get_json
-from app.schemas.responses import TestClass, PartieEntry, PartieEntries
+from app.schemas.responses import TestClass, PartieEntry, PartieEntries, WebHook
 from rich.console import Console
 import json
 import os
@@ -7,21 +7,6 @@ import pandas as pd
 from typing import List
 
 console = Console()
-
-# file processing layer
-
-def process_directory(directory, prefix):
-    if not os.path.isdir(directory):
-        raise ValueError(f"The directory {directory} does not exist or is not a directory.")
-    processed_files = []
-    
-    for filename in os.listdir(directory):
-        if filename.startswith(prefix) and os.path.isfile(os.path.join(directory, filename)):
-            # Process the file (this is just a placeholder for actual processing logic)
-            print(f"Processing file: {filename}")
-            processed_files.append(f"{directory}/{filename}")
-
-    return processed_files
 
 
 def process_xlsx_files(directory: str, prefix: str) -> List[str]:
@@ -47,8 +32,8 @@ def process_xlsx_files(directory: str, prefix: str) -> List[str]:
                 # Read the Excel file
                 df = pd.read_excel(file_path, dtype=str)
                 # Process the DataFrame (this can be customized)
-                print(f"Processing file: {filename}")
-                dataframes.append(str(df))
+                # print(f"Processing file: {filename}")
+                dataframes.append(str(df)) # loading them as a string for better reading and processing
 
     return dataframes
 
@@ -57,8 +42,8 @@ if __name__ == "__main__":
         # partie_files = process_directory("./attachements", "Partie")
         data = process_xlsx_files("./attachements", "Partie")
 
-        for dt in data:
-            console.print("the data: ", dt)
+        # for dt in data:
+        #     console.print("the data: ", dt)
         prompt = f"""
  <prompt>
      <task>

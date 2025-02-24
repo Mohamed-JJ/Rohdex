@@ -37,3 +37,10 @@ class Wahrheitsdatei(BaseModel):
     product_descriptions: str = Field(..., description="Text descriptions of down/feather types")
     container_numbers: str = Field(..., description="Unique container identifiers")
     destination: str = Field("Los Angeles", description='Always "Los Angeles" for this client')
+
+class WebHook(BaseModel):
+  _id: str
+  date: str
+  subject: str
+  from_email: str
+  from_name: str

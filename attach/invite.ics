@@ -1,0 +1,31 @@
+BEGIN:VCALENDAR
+PRODID:-//Indeed Inc//Interview Management 0.1//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VTIMEZONE
+TZID:Africa/Casablanca
+TZUNTIL:20870511T020001Z
+LAST-MODIFIED:20250121T082933Z
+TZURL:https://www.tzurl.org/zoneinfo-outlook/Africa/Casablanca
+X-LIC-LOCATION:Africa/Casablanca
+BEGIN:STANDARD
+TZNAME:+00
+TZOFFSETFROM:+0000
+TZOFFSETTO:+0000
+DTSTART:19700101T000000
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTAMP:20250224T131647Z
+DTSTART;TZID=Africa/Casablanca:20250225T143000
+DTEND;TZID=Africa/Casablanca:20250225T150000
+SUMMARY: Phone interview with ENTITLED 
+UID:mPJ1CbMDA3wXilgZ9eH69J0AMyqPjKxSaAGaLJHX0QM=@interviews.indeed.com
+TRANSP:OPAQUE
+STATUS:CONFIRMED
+ORGANIZER;CN=Indeed.com:mailto:no-reply@indeed.com
+ATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;X-NUM-GUESTS=0;RSVP=FALSE;CN=simojarboue24@gmail.com:mailto:simojarboue24@gmail.com
+DESCRIPTION:You have a scheduled phone interview with ENTITLED for the Software Engineering Internship (PFE/PFA) position.\n\nThe employer will call you at the interview start time.\n\n-----------------------------\n\nCan't attend this interview?\nReschedule: https://l.indeed.com/qFLBmPPQji/\n\nCancel: https://l.indeed.com/U8e90S1Y2x/\n
+END:VEVENT
+END:VCALENDAR

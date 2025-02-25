@@ -22,7 +22,7 @@ class EmailReader:
         self.mailbox = MailBox(self.imap_server)
         self.mailbox.login(self.email_user, self.email_pass)
 
-    def fetch_emails(self, since: datetime, until: datetime, folder='INBOX')-> List[Dict[str, str]]:
+    def fetch_emails(self, since: datetime, until: datetime, folder='INBOX')-> List[MailMessage]:
         """
     Fetch emails from specified folder within given date range.
     
@@ -36,8 +36,9 @@ class EmailReader:
         """
         criteria = A(date_gte=since.date(), date_lt=until.date())
         emails = []
-        for msg in self.mailbox.fetch(criteria=criteria, reverse=True, mark_seen=False, limit=30):  # Fetch the last 20 emails
-            emails.append(self.parse_email(msg))
+        for msg in self.mailbox.fetch(criteria=criteria, reverse=True, mark_seen=False):  # Fetch the last 30 emails
+            print("the subjct is :", msg.subject)
+            emails.append(msg)
         return emails
 
     def parse_email(self, msg: MailMessage):

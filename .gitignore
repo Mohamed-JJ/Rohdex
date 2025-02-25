@@ -2,6 +2,7 @@ env
 .env
 db
 attachements
+attachement
 ./images
 results.json
 todo.todo

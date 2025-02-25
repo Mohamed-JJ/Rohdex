@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import PlainTextResponse
 from ..schemas.responses import WebHook
-from datetime import datetime
+from datetime import datetime, timedelta
 from app.core import get_logger
 from ..services.gmail_services import EmailReader
 from ..services.file_processing import process_attached_files
@@ -35,16 +35,33 @@ async def process_attachements() -> dict:
     # since = datetime(2024, 2, 18)  # February 18th
 
     # fetch the emails from the inbox
-    emails = reader.fetch_emails(since=since, until=until)
+    start_date = since - timedelta(days=1)
+    emails = reader.fetch_emails(since= start_date, until=until+timedelta(days=1))
 
     ## add the attachements processing here, aka partie files
+    os.makedirs("./attach", exist_ok=True)
+    for email in emails:
+        # save the id of the email in the db
+        console.print("subject: ",email.subject, email.attachments.__len__())
+        for attachement in email.attachments:
+        # Save the attachment
+            if (attachement.filename):
+                file_path = os.path.join("./attach/", attachement.filename)
+                console.print(f"the file path is: {file_path}")
+                with open(file_path, 'wb') as f:
+                    f.write(attachement.payload)
+                print(f'Saved attachment: {file_path}')
 
-    ret = process_attached_files(emails)
+
+    # ret = process_attached_files(emails)
+    
+    # here you can add the logic to process the output from the AI call into the output files
+    #########################################################################################
 
     # save the run in the json file
     runss.append({"id": runss.__len__() + 1, "date": datetime.now().isoformat()})
     newRun = save_run(runss)
-    return {"status": "success", "timestamp": datetime.now(), "data": ret}
+    return {"status": "success", "timestamp": datetime.now(), "data": []}
 
 # webhooks = []
 
